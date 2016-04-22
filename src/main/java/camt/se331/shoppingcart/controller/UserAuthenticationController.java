@@ -2,7 +2,7 @@ package camt.se331.shoppingcart.controller;
 
 import camt.se331.shoppingcart.entity.transfer.TokenTransfer;
 import camt.se331.shoppingcart.entity.transfer.UserTransfer;
-import camt.se331.shoppingcart.service.util.TokenUtil;
+import camt.se331.shoppingcart.service.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,10 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +19,7 @@ import java.util.Map;
 /**
  * Created by Family on 19/4/2559.
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserAuthenticationController {
@@ -45,7 +43,7 @@ public class UserAuthenticationController {
         return roles;
     }
 
-    @RequestMapping(value = "/authenticae", method = RequestMethod.POST)
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public TokenTransfer authenticate (@RequestBody String body){
         String[] token = body.split("&");
         String username = token[0].split("=")[1];
@@ -54,6 +52,6 @@ public class UserAuthenticationController {
         Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-        return  new TokenTransfer(TokenUtil.createToken(userDetails));
+        return  new TokenTransfer(TokenUtils.createToken(userDetails));
     }
 }

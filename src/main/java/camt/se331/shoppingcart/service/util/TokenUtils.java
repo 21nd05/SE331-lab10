@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by Family on 19/4/2559.
  */
-public class TokenUtil {
+public class TokenUtils {
 
     public static final String MAGIC_KEY = "obfuscate";
 
@@ -24,7 +24,7 @@ public class TokenUtil {
         tokenBuilder.append(":");
         tokenBuilder.append(expires);
         tokenBuilder.append(":");
-        tokenBuilder.append(TokenUtil.computeSignature(userDetails, expires));
+        tokenBuilder.append(TokenUtils.computeSignature(userDetails, expires));
 
         return tokenBuilder.toString();
     }
@@ -39,7 +39,7 @@ public class TokenUtil {
         signatureBuilder.append(":");
         signatureBuilder.append(userDetails.getPassword());
         signatureBuilder.append(":");
-        signatureBuilder.append(TokenUtil.MAGIC_KEY);
+        signatureBuilder.append(TokenUtils.MAGIC_KEY);
 
         MessageDigest digest;
         try {
@@ -73,6 +73,6 @@ public class TokenUtil {
             return false;
         }
 
-        return signature.equals(TokenUtil.computeSignature(userDetails, expires));
+        return signature.equals(TokenUtils.computeSignature(userDetails, expires));
     }
 }

@@ -14,6 +14,7 @@ public class UserTransfer {
         this.roles = roles;
     }
 
+
     public String getName() {
         return name;
     }
