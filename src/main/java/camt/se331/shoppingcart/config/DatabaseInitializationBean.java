@@ -29,6 +29,8 @@ public class DatabaseInitializationBean implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         Role adminRole = new Role("admin");
         Role userRole = new Role("user");
+        Role foreignRole = new Role("foreignUser");
+
         User admin = new User();
         admin.setName("admin");
         admin.setUsername("admin");
@@ -46,10 +48,22 @@ public class DatabaseInitializationBean implements InitializingBean {
         Set<Role> roles2 = new HashSet<>();
         roles2.add(userRole);
         user.setRoles(roles2);
+
+        User foreignUser = new User();
+        foreignUser.setName("foreignUser");
+        foreignUser.setUsername("foreign");
+        foreignUser.setEmail("foreign@yahoo.com");
+        foreignUser.setPassword("123456");
+        Set<Role> roles3 = new HashSet<>();
+        roles3.add(foreignRole);
+        foreignUser.setRoles(roles3);
         userRepository.save(admin);
         userRepository.save(user);
+        userRepository.save(foreignUser);
         admin.setRoles(roles);
         user.setRoles(roles2);
+        foreignUser.setRoles(roles3);
+
 
         Product[] initProduct =  {
                 new Product(1l,"Kindle","the good book reader",6900.00, ImageUtil.resizeImage(ImageUtil.getImage("pic/x.png"),200)),
