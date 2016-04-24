@@ -1,5 +1,7 @@
 package camt.se331.shoppingcart.entity;
 
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -8,22 +10,21 @@ import java.io.Serializable;
 /**
  * Created by Family on 19/4/2559.
  */
-public class Role implements Serializable{
-    private static final long serialVersionUID = 1L;
+@Entity
+public class Role implements Serializable {
+  private static  final  long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long id;
+    private Long id;
     private  String roleName;
-    public Role(){
 
-    }
+    public Role(){}
 
     public Role(String roleName) {
         this.roleName = roleName;
     }
 
     public static long getSerialVersionUID() {
-
         return serialVersionUID;
     }
 

@@ -1,5 +1,6 @@
 package camt.se331.shoppingcart.entity;
 
+
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 
@@ -16,15 +17,18 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private  Long id;
     private String username;
     private String name;
     private String email;
     private String password;
     private Date dob;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany (fetch = FetchType.EAGER)
     @Cascade(CascadeType.ALL)
     private Set<Role> roles = new HashSet<>();
+    public User(){
+
+    }
 
     public User(String username, String name, String email, String password, Date dob, Set<Role> roles) {
         this.username = username;
@@ -36,7 +40,6 @@ public class User {
     }
 
     public Long getId() {
-
         return id;
     }
 
@@ -90,9 +93,5 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public User(){
-
     }
 }

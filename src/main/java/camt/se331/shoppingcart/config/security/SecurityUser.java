@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
@@ -14,8 +13,8 @@ import java.util.Set;
 /**
  * Created by Family on 19/4/2559.
  */
-public class SecurityUser extends User implements UserDetails {
-    private static final long serialVersionUID = 1L;
+public class SecurityUser extends User implements UserDetails{
+    private  static final  long serialVersionUID = 1L;
     public SecurityUser(User user){
         if (user != null){
             this.setId(user.getId());
@@ -28,26 +27,25 @@ public class SecurityUser extends User implements UserDetails {
         }
     }
     @Override
-    public String getUsername() {
-        return super.getUsername();
-    }
-
-    @Override
-    public String getPassword() {
-        return super.getPassword();
-    }
-
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority>authorities = new ArrayList<>();
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
         Set<Role> userRoles = this.getRoles();
-        if(userRoles != null){
+        if (userRoles != null){
             for (Role role: userRoles){
                 SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getRoleName());
                 authorities.add(authority);
             }
         }
         return authorities;
+    }
+    @Override
+    public String getUsername(){
+        return super.getUsername();
+    }
+
+    @Override
+    public String getPassword(){
+        return super.getPassword();
     }
 
     @Override
