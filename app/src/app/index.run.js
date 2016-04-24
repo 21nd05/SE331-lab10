@@ -6,27 +6,33 @@
     .run(runBlock)
     .run(runSecurity);
 
-  /** @ngInject*/
-  function runSecurity($rootScope,$location,$cookies,UserService){
-    var removeErrMsg = $rootScope.$on('$viewContentLoaded',function(){
+  /** @ngInject */
+  function  runSecurity ($rootScope, $location, $cookies, UserService){
+    var removeErrorMsg = $rootScope.$on('$viewContentLoaded', function (){
       delete $rootScope.error;
     });
-    removeErrMsg();
-    $rootScope.hasRole = function(role){
-      if ($rootScope.user==undefined){
+    removeErrorMsg();
+
+    $rootScope.hasRole = function (role) {
+      if ($rootScope.user == undefined) {
         return false;
       }
+
       if ($rootScope.user.roles[role] == undefined){
         return false;
       }
+
       return $rootScope.user.roles[role];
     }
-    $rootScope.logout = function(){
+
+    $rootScope.logout = function () {
       delete $rootScope.user;
       delete $rootScope.authToken;
       $cookies.remove('authToken');
       $location.path("/listProduct")
     }
+
+    /* Try getting valid user from cookie or go to login page */
     var originalPath = $location.path();
     $location.path("/listProduct");
     var authToken = $cookies.get('authToken');
@@ -37,7 +43,7 @@
         $location.path(originalPath);
       })
     }
-    $rootScope.initialized = true;
+    $rootScope.initialzed = true;
   }
 
   /** @ngInject */
