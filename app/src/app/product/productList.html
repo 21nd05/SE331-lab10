@@ -42,16 +42,16 @@
           <th class="text-right" translate>listProduct.netPrice</th>
           <th class="text-right" translate>listProduct.price</th>
           <th class="text-center" translate>listProduct.picture</th>
-          <th translate>listProduct.edit</th>
-          <th translate>listProduct.delete</th>
+          <th translate ng-show="hasRole('user')">listProduct.edit</th>
+          <th translate ng-show="hasRole('admin')">listProduct.delete</th>
 
         </tr>
         <tr ng-repeat="product in vm.products">
           <td>{{$index+1}}</td>
           <td>{{product.name}}</td>
           <td>{{product.description}}</td>
-          <td class="text-right">{{product.netPrice | number}}</td>
-          <td class="text-right">{{product.totalPrice | number}}</td>
+          <td class="text-right" ng-show="hasRole('user')">{{product.netPrice | number}}</td>
+          <td class="text-right" ng-show="hasRole('admin')">{{product.totalPrice | number}}</td>
           <td>
             <div ng-repeat="image in product.images" class="text-center" class="thumbnail">
               <img ng-src="data:{{image.contentType}};base64,{{image.content}}">
